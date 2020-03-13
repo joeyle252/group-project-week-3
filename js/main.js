@@ -1,11 +1,19 @@
-// let textArea = document.getElementById ("contentBox");
 
-// let countLetter = () => {
-//    let remain = 140 - textArea.value.length;
+let textArea = document.getElementById ("contentBox");
+
+let countLetter = () => {
+   let remain = 140 - textArea.value.length;
+
+   if (remain < 0) {
+    document.getElementById('charCountArea').innerHTML = `${remain}chars`.fontcolor('red');
+   } else {
+    document.getElementById('charCountArea').innerHTML = `${remain}chars`;
+   }
    
-//    document.getElementById('charCountArea").innerHTML =  `${remain}chars`
-// }
+   
+}
 
-// textArea.addEventListener('input',countLetter);
+textArea.addEventListener('input',countLetter);
+
 
 
