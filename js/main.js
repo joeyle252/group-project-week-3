@@ -1,28 +1,4 @@
 
-// let textArea = document.getElementById ("contentBox");
-// let resultArea = document.getElementById('resultArea');
-// let tweetList = 0;
-// let id = 0;
-
-// let countLetter = () => {
-//    let remain = 140 - textArea.value.length;
-
-//    if (remain < 0) {
-//     document.getElementById('charCountArea').innerHTML = `${remain}chars`.fontcolor('red');
-//    } else {
-//     document.getElementById('charCountArea').innerHTML = `${remain}chars`;
-//    }
-// }
-
-// let showTweet = () => {
-//     document.getElementById('resultArea').innerHTML = `${textArea.value}`;
-// }
-
-
-// textArea.addEventListener('input',countLetter);
-// tweetButton.addEventListener('click',showTweet)
-
-
 // New code
 let textArea =  document.getElementById('contentsBox');
 let tweetList = []
@@ -39,7 +15,6 @@ let countLetter = () =>{
    }
    
 }
-
 // add event on textarea, should come after define the countLetter function. 
 textArea.addEventListener('input',countLetter);
 
@@ -50,13 +25,22 @@ textArea.addEventListener('input',countLetter);
         id:id, // unique value 
         contents: textArea.value 
     }
+    let splitValue = tweet.contents.split(" ");
+    let transformedTweets = splitValue.map ((item)=> {// split every single word of tweet
+        let firstChar = item.charAt(0);// find the first letter 
+        if (firstChar === "#") {
+            return ` <a href ="${item.substring(1)}"> ${item} </a>`
+        } 
+        return item  
+    }).join(' ');
+    tweet.contents = transformedTweets;
     tweetList.push(tweet);
+    
     render(tweetList);
     id++;
     textArea.value =""
     countLetter()
 }
-
 
 // retweet function (Khoa way)
 let retweet =(originid) =>{
