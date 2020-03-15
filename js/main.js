@@ -28,6 +28,14 @@ let textArea =  document.getElementById('contentsBox');
 let tweetList = []
 let id =0;  // must define the id outside.
 
+// khanh added this.
+const storageName = localStorage.getItem("inputUserName");
+document.querySelector('.name-id').innerHTML = `${storageName}`;
+document.querySelector('.name-id-2').innerHTML = `@${storageName}offical`;
+const signInStatus = document.querySelector('.signout');
+signInStatus.innerHTML = `<a class="signout" href="index.html" style="
+font: 21px Gotham-bold; color: white; ">SIGN OUT</a>`;
+
 // count the letter at TextArea
 let countLetter = () =>{
    let remain = 140 - textArea.value.length;
@@ -45,18 +53,28 @@ textArea.addEventListener('input',countLetter);
 
 
 // add the Tweet,  (Khoa way)
- let addTweet=() => {
+let addTweet=() => {
     let tweet = {
         id:id, // unique value 
-        contents: textArea.value 
+        contents: textArea.value,
+        likes: []  
     }
+    let splitValue = tweet.contents.split(" ");
+    let transformedTweets = splitValue.map ((item)=> {// split every single word of tweet
+        let firstChar = item.charAt(0);// find the first letter 
+        if (firstChar === "#") {
+            return ` <a href ="${item.substring(1)}"> ${item} </a>`
+        } 
+        return item  
+    }).join(' ');
+    tweet.contents = transformedTweets;
     tweetList.push(tweet);
+    
     render(tweetList);
     id++;
     textArea.value =""
     countLetter()
 }
-
 
 // retweet function (Khoa way)
 let retweet =(originid) =>{
@@ -68,6 +86,7 @@ let retweet =(originid) =>{
     let retweetObject = {
         id:id,
         contents: originTweet.contents,
+        likes: [],
         originTweetID:originid  // referencing
     }
 
@@ -95,10 +114,59 @@ let deleteTweet = (deleteId) =>{
 
 
 
+//Khai code
+
+function myFunction(id, x) {
+    let index = tweetList.findIndex(e => e.id === id); // tìm index của cái tweet trong array tweetList
+    if (!tweetList[index].likes.includes(storageName))  // check xem current User like chưa
+        tweetList[index].likes.push(storageName) // chưa like thì push vào array likes
+    else  // like ròi thi remove nó ra khỏi array (unlike)
+        tweetList[index].likes = tweetList[index].likes.filter(e => !tweetList[index].likes.includes(storageName))
+    render(tweetList) // render lại
+}
+
+
+// function này để check xem storageName có like tweet nay chưa. Gọi trong lúc render
+const checkIsLike = (item) => {
+    return item.likes.includes(storageName)
+}
+
 // Show on screen 
-let render= (array) =>{
-    let htmlForTweet = array.map((item)=>`<li>${item.contents} <button class="btn btn-primary">like</button><button onclick="retweet(${item.id})">retweet</button><button onclick="deleteTweet(${item.id})">delete</button></li>`).join('')
-    document.getElementById('tweetArea').innerHTML= htmlForTweet
+let render = (array) => {
+    console.log(array)
+    // chỗ checkIsLike ở dưới là tenary operator (if else 1 line) để render chữ like nếu storageName chưa có trong array item.likes, và ngược lại
+    let htmlForTweet = array.map((item) => `
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <img src="/img/frame-user-2.png" class="img-fluid" style="max-width: 100%;">
+                                        </div>
+                                        <div class="col-sm-10" style="text-align: right;">
+                                            <div class="title-user"
+                                                    style="display:flex; flex-direction: row; justify-content: space-between; margin-top: 2%;">
+                                                <div class="name-id" id="name-users">User</div>
+                                                <div class="name-id-2" id="name-users-2">@useroffical</div>
+                                                <div id="timeArea">Today</div>
+                                            </div>
+                                            <div style="background-color: #2FA8FD;
+                                                        border: none;
+                                                        border-radius: 7px;
+                                                        margin-top: 1%;
+                                                        height: 60%;
+                                                        width: 100%;">${item.contents} </div>
+                                            <div class="buttonreact" style="margin-top: 1%;">
+                                            <button class="${checkIsLike(item) ? "fas" : "far"} fa-heart" onclick="myFunction(${item.id},this)"></button>
+                                            <button class="commentBtn" style="background: none; border: none; margin-right: 7%;"><img
+                                                src="/img/comment.png"></button>
+                                            <button class="reSmurfBtn" onclick="retweet(${item.id})" style="background: none; border: none;margin-right: 7%;"><img
+                                                    src="/img/reSmurf.png"></button>
+                                            <button class="deleteBtn" onclick="deleteTweet(${item.id})" style="background: none; border: none;margin-right: 15%; width: 60px;"><img
+                                                                    src="/img/delete.png"></button>        
+                                        </div>
+                                    </div>
+                                </div>
+    `).join('')
+    document.getElementById('tweetArea').innerHTML = htmlForTweet
 
 }
 

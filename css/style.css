@@ -1,3 +1,29 @@
+@font-face {
+    font-family: Gotham-regular;
+    src: url(/font/GothaProReg.otf);
+}
+
+@font-face {
+    font-family: Gotham-medium;
+    src: url(/font/GothaProMed.otf);
+}
+
+@font-face {
+    font-family: Gotham-light;
+    src: url(/font/GothaProLig.otf);
+}
+
+@font-face {
+    font-family: Gotham-bold;
+    src: url(/font/GothaProBol.otf);
+}
+
+
+body {
+    background-color: #001C31;
+    color: white;
+}
+
 
 .form-signin {
     width: 200px;
@@ -7,4 +33,42 @@
     display: flex;
     flex-direction: column;
     width: 200px;
+}
+
+.btn-tweet {
+    background-color: #005796;
+    border-radius: 20px;
+    border: none;
+    margin-top: 3%;
+    color: white;
+    height: 40px;
+    text-align: center;
+    width: 100px;
+  
+
+}
+
+.textbox {
+    background-color: #2FA8FD;
+    border: none;
+    border-radius: 7px;
+    margin-top: 1%;
+    height: 60%;
+    width: 100%;
+
+}
+
+#charCountArea {
+    position: relative;
+    margin-top: -5%;
+    margin-right: 5%;
+}
+
+.nav-link {
+    font: 21px Gotham-bold;
+    color: white;
+}
+
+textarea:focus {
+    outline: none;
 }
