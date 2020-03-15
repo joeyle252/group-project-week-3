@@ -59,6 +59,12 @@ let addTweet=() => {
         contents: textArea.value,
         likes: []  
     }
+
+    if ( !tweet.contents) {
+        alert ("You should say us what is happening, please!!!");
+        return;
+    }
+
     let splitValue = tweet.contents.split(" ");
     let transformedTweets = splitValue.map ((item)=> {// split every single word of tweet
         let firstChar = item.charAt(0);// find the first letter 
@@ -145,8 +151,8 @@ let render = (array) => {
                                             <div class="title-user"
                                             style="display:flex; flex-direction: row; justify-content: space-between; align-items: center; margin-top: 2%;">
                                                 <div class="name-id" id="name-users" style="font: 18px Gotham-bold;">${storageName}</div>
-                                                <div class="name-id-2" id="name-users-2" style="font: 14px Gotham-regular; color: #989898; margin-left: -72%;">@${storageName}offical</div>
-                                                <div id="timeArea">Today</div>
+                                                <div class="name-id-2" id="name-users-2" style="font: 14px Gotham-regular; color: #989898; margin-left: -70%;">@${storageName}offical</div>
+                                                <div id="timeArea">${moment().startOf('hour').fromNow()}</div>
                                             </div>
                                             <div style="background-color: #2FA8FD;
                                                         border: none;
