@@ -52,6 +52,7 @@ body {
     background-color: #2FA8FD;
     border: none;
     border-radius: 7px;
+    color: white;
     margin-top: 1%;
     height: 60%;
     width: 100%;
@@ -70,5 +71,9 @@ body {
 }
 
 textarea:focus {
+    outline: none;
+}
+
+.btn-tweet:focus {
     outline: none;
 }

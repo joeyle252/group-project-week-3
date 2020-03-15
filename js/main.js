@@ -143,25 +143,22 @@ let render = (array) => {
                                         </div>
                                         <div class="col-sm-10" style="text-align: right;">
                                             <div class="title-user"
-                                                    style="display:flex; flex-direction: row; justify-content: space-between; margin-top: 2%;">
-                                                <div class="name-id" id="name-users">User</div>
-                                                <div class="name-id-2" id="name-users-2">@useroffical</div>
+                                            style="display:flex; flex-direction: row; justify-content: space-between; align-items: center; margin-top: 2%;">
+                                                <div class="name-id" id="name-users" style="font: 18px Gotham-bold;">${storageName}</div>
+                                                <div class="name-id-2" id="name-users-2" style="font: 14px Gotham-regular; color: #989898; margin-left: -72%;">@${storageName}offical</div>
                                                 <div id="timeArea">Today</div>
                                             </div>
                                             <div style="background-color: #2FA8FD;
                                                         border: none;
                                                         border-radius: 7px;
                                                         margin-top: 1%;
-                                                        height: 60%;
-                                                        width: 100%;">${item.contents} </div>
-                                            <div class="buttonreact" style="margin-top: 1%;">
-                                            <button class="${checkIsLike(item) ? "fas" : "far"} fa-heart" onclick="myFunction(${item.id},this)"></button>
-                                            <button class="commentBtn" style="background: none; border: none; margin-right: 7%;"><img
-                                                src="/img/comment.png"></button>
-                                            <button class="reSmurfBtn" onclick="retweet(${item.id})" style="background: none; border: none;margin-right: 7%;"><img
-                                                    src="/img/reSmurf.png"></button>
-                                            <button class="deleteBtn" onclick="deleteTweet(${item.id})" style="background: none; border: none;margin-right: 15%; width: 60px;"><img
-                                                                    src="/img/delete.png"></button>        
+                                                        height: auto;
+                                                        width: 100%; text-align: left;padding-left: 2%;padding-top: 2%; padding-bottom: 2%;">${item.contents} </div>
+                                            <div class="buttonreact" style="margin-top: 3%;">
+                                            <button class="${checkIsLike(item) ? "fas" : "far"} fa-heart fa-2x" onclick="myFunction(${item.id},this)" style="background: none; border:none; color:white;margin-right: 7%;"></button>
+                                            <button class="commentBtn" style="background: none; border: none; margin-right: 7%; color: white;"><i class="far fa-comment fa-2x"></i></button>
+                                            <button class="reSmurfBtn" onclick="retweet(${item.id})" style="background: none; border: none;margin-right: 7%;color: white;"><i class="fas fa-retweet fa-2x"></i></button>
+                                            <button class="deleteBtn" onclick="deleteTweet(${item.id})" style="background: none; border: none;margin-right: 15%; color: white;"><i class="fas fa-trash fa-2x"></i></button>        
                                         </div>
                                     </div>
                                 </div>
